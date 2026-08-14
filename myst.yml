@@ -1,0 +1,17 @@
+version: 1
+project:
+  title: 量潮数据工程意图
+  description: 记录量潮数据工程领域的目标、原则与价值主张
+  keywords: [数据工程, 量潮数据云, 商业模式]
+  authors:
+    - name:
+        literal: 量潮科技
+      email: opensource@quanttide.com
+  github: https://github.com/quanttide/quanttide-intention-of-data-engineering
+  source: https://github.com/quanttide/quanttide-intention-of-data-engineering/tree/main
+  toc:
+    - file: index.md
+    - file: business-model.md
+
+site:
+  template: book-theme

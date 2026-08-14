@@ -1,0 +1,42 @@
+name: MyST Deploy to OSS (qtdocs-site)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BASE_URL: /quanttide-intention-of-data-engineering
+
+jobs:
+  deploy-oss:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install MyST Markdown
+        run: npm install --global mystmd@1.10.1
+
+      - name: Build HTML
+        run: myst build --html
+
+      - name: Verify build output
+        run: test -f ./_build/html/index.html
+
+      - uses: manyuanrong/setup-ossutil@v3.0
+        with:
+          endpoint: oss-cn-hangzhou.aliyuncs.com
+          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+
+      - name: Upload to OSS
+        run: |
+          ossutil rm oss://qtdocs-site/quanttide-intention-of-data-engineering/ -r -f || true
+          ossutil cp ./_build/html/ oss://qtdocs-site/quanttide-intention-of-data-engineering/ -r -f --meta=Cache-Control:public,max-age=300
