@@ -8,3 +8,4 @@
 - [x] 忽略 MyST 构建产物（.gitignore）
 - [x] 推送 main 并确认 GitHub Actions 成功
 - [x] 验收线上地址（https://docs.quanttide.com/quanttide-intention-of-data-engineering/）
+- [x] 将首页扩写为工作手册式正文并收口导航
